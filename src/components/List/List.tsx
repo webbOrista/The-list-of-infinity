@@ -1,35 +1,82 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRepositoriesAsync, resetList } from "../../redux/listSlice";
+import { RootState } from "../../redux/store";
+import CircularProgress from "@mui/material/CircularProgress";
+import styles from "./List.module.scss";
 
-import {fetchRepositories } from '../../../api'
+const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 
 const RepositoryList = () => {
-  const [repositories, setRepositories] = useState<any[]>([]);
+  const dispatch = useDispatch();
+  const { items, loading, currentPage, hasMore } = useSelector(
+    (state: RootState) => state.list
+  );
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const lastRepoRef = useRef<HTMLLIElement | null>(null);
 
   useEffect(() => {
-    const getRepositories = async () => {
-      try {
-        const data = await fetchRepositories('javascript', 1, 'ACCESS_TOKEN');
-        setRepositories(data.items);
-      } catch (error) {
-        console.error('Ошибка:', error);
+    dispatch(
+      fetchRepositoriesAsync({
+        query: "javascript",
+        page: currentPage,
+        token: accessToken,
+      })
+    );
+
+    return () => {
+      dispatch(resetList());
+    };
+  }, [dispatch, currentPage]);
+
+  const handleObserver = (entries: IntersectionObserverEntry[]) => {
+    const entry = entries[0];
+    if (entry.isIntersecting && hasMore && !loading) {
+      dispatch(
+        fetchRepositoriesAsync({ query: "javascript", page: currentPage + 1 })
+      );
+    }
+  };
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(handleObserver, {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1.0,
+    });
+
+    const currentLastRepo = lastRepoRef.current;
+
+    if (currentLastRepo) {
+      observerRef.current.observe(currentLastRepo);
+    }
+
+    return () => {
+      if (observerRef.current && currentLastRepo) {
+        observerRef.current.unobserve(currentLastRepo);
       }
     };
-
-    getRepositories();
-  }, []);
+  }, [items]);
 
   return (
-    <div>
+    <div className={styles.listItem}>
       <h1>Репозитории</h1>
-      {repositories.length > 0 ? (
-        <ul>
-          {repositories.map((repo) => (
-            <li key={repo.id}>{repo.name}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>По такому запросу репозитории не найдены</p>
-      )}
+      {loading && <CircularProgress size={50} color="inherit" />}
+      <ul>
+        {items.map((repo, index) => {
+          const isLastRepo = index === items.length - 1;
+          return (
+            <li
+              className={styles.listItem}
+              key={repo.id}
+              ref={isLastRepo ? lastRepoRef : null}
+            >
+              {repo.name}
+            </li>
+          );
+        })}
+      </ul>
+      {loading && <p>Секундочку, загружаем...</p>}
     </div>
   );
 };
