@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import { fetchRepositories } from "../api/api";
 
 interface Repository {
@@ -50,11 +50,12 @@ const listSlice = createSlice({
     removeRepository: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
-    editRepository: (state, action) => {
-      const { id, updatedData } = action.payload;
-      const existingRepo = state.items.find((item) => item.id === id);
-      if (existingRepo) {
-        Object.assign(existingRepo, updatedData);
+    editRepository: (state, action: PayloadAction<{ id: number; name: string; description: string }>) => {
+      const { id, name, description } = action.payload;
+      const repository = state.items.find((item) => item.id === id);
+      if (repository) {
+        repository.name = name;
+        repository.description = description;
       }
     },
     resetList: (state) => {

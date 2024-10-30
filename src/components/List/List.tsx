@@ -4,6 +4,7 @@ import { fetchRepositoriesAsync, resetList } from "../../redux/listSlice";
 import { RootState } from "../../redux/store";
 import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./List.module.scss";
+import RepositoryCard from "../Card/Card";
 
 const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 
@@ -58,6 +59,7 @@ const RepositoryList = () => {
     };
   }, [items]);
 
+
   return (
     <div className={styles.listItem}>
       <h1>Репозитории</h1>
@@ -66,13 +68,10 @@ const RepositoryList = () => {
         {items.map((repo, index) => {
           const isLastRepo = index === items.length - 1;
           return (
-            <li
-              className={styles.listItem}
-              key={repo.id}
+            <RepositoryCard
+              repository={repo}
               ref={isLastRepo ? lastRepoRef : null}
-            >
-              {repo.name}
-            </li>
+            />
           );
         })}
       </ul>
