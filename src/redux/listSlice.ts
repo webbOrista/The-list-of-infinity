@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { fetchRepositories } from "../api/api";
 
 interface Repository {
@@ -8,6 +8,7 @@ interface Repository {
   html_url: string;
   description: string;
   stargazers_count: number;
+  updated_at: string;
 }
 
 interface ListState {
@@ -15,6 +16,7 @@ interface ListState {
   loading: boolean;
   currentPage: number;
   hasMore: boolean;
+  sortOrder: string;
 }
 
 const initialState: ListState = {
@@ -22,20 +24,39 @@ const initialState: ListState = {
   loading: false,
   currentPage: 1,
   hasMore: true,
+  sortOrder: "stars",
 };
 
-export const fetchRepositoriesAsync = createAsyncThunk(
+interface RootState {
+  list: ListState;
+}
+
+interface FetchRepositoriesArgs {
+  query: string;
+  page: number;
+  token?: string;
+}
+
+export const fetchRepositoriesAsync = createAsyncThunk<
+  any,
+  FetchRepositoriesArgs,
+  { state: RootState }
+>(
   "list/fetchRepositories",
-  async ({
-    query,
-    page,
-    token,
-  }: {
-    query: string;
-    page: number;
-    token?: string;
-  }) => {
-    const response = await fetchRepositories(query, page, token);
+  async (
+    {
+      query,
+      page,
+      token,
+    }: {
+      query: string;
+      page: number;
+      token?: string;
+    },
+    { getState }
+  ) => {
+    const { sortOrder } = getState().list;
+    const response = await fetchRepositories(query, page, token, sortOrder);
     return response;
   }
 );
@@ -44,13 +65,22 @@ const listSlice = createSlice({
   name: "list",
   initialState,
   reducers: {
+    setSortOrder: (state, action: PayloadAction<string>) => {
+      state.sortOrder = action.payload;
+      state.items = [];
+      state.currentPage = 1;
+    },
+
     addRepository: (state, action) => {
       state.items.push(action.payload);
     },
     removeRepository: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
-    editRepository: (state, action: PayloadAction<{ id: number; name: string; description: string }>) => {
+    editRepository: (
+      state,
+      action: PayloadAction<{ id: number; name: string; description: string }>
+    ) => {
       const { id, name, description } = action.payload;
       const repository = state.items.find((item) => item.id === id);
       if (repository) {
@@ -80,7 +110,12 @@ const listSlice = createSlice({
   },
 });
 
-export const { addRepository, removeRepository, editRepository, resetList } =
-  listSlice.actions;
+export const {
+  addRepository,
+  removeRepository,
+  editRepository,
+  resetList,
+  setSortOrder,
+} = listSlice.actions;
 
 export default listSlice.reducer;

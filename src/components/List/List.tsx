@@ -5,11 +5,12 @@ import { RootState } from "../../redux/store";
 import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./List.module.scss";
 import RepositoryCard from "../Card/Card";
+import { TappDispatch } from "../../types";
 
 const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 
 const RepositoryList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<TappDispatch>();
   const { items, loading, currentPage, hasMore } = useSelector(
     (state: RootState) => state.list
   );
@@ -59,10 +60,8 @@ const RepositoryList = () => {
     };
   }, [items]);
 
-
   return (
     <div className={styles.listItem}>
-      <h1>Репозитории</h1>
       {loading && <CircularProgress size={50} color="inherit" />}
       <ul>
         {items.map((repo, index) => {
