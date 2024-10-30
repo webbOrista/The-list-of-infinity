@@ -1,23 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { fetchRepositories } from "../api/api";
-
-interface Repository {
-  id: number;
-  name: string;
-  full_name: string;
-  html_url: string;
-  description: string;
-  stargazers_count: number;
-  updated_at: string;
-}
-
-interface ListState {
-  items: Repository[];
-  loading: boolean;
-  currentPage: number;
-  hasMore: boolean;
-  sortOrder: string;
-}
+import { ListState } from "./../types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fetchRepositoriesAsync } from "./asyncAction";
 
 const initialState: ListState = {
   items: [],
@@ -26,40 +9,6 @@ const initialState: ListState = {
   hasMore: true,
   sortOrder: "stars",
 };
-
-interface RootState {
-  list: ListState;
-}
-
-interface FetchRepositoriesArgs {
-  query: string;
-  page: number;
-  token?: string;
-}
-
-export const fetchRepositoriesAsync = createAsyncThunk<
-  any,
-  FetchRepositoriesArgs,
-  { state: RootState }
->(
-  "list/fetchRepositories",
-  async (
-    {
-      query,
-      page,
-      token,
-    }: {
-      query: string;
-      page: number;
-      token?: string;
-    },
-    { getState }
-  ) => {
-    const { sortOrder } = getState().list;
-    const response = await fetchRepositories(query, page, token, sortOrder);
-    return response;
-  }
-);
 
 const listSlice = createSlice({
   name: "list",

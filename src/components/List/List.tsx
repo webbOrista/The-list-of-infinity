@@ -1,16 +1,16 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRepositoriesAsync, resetList } from "../../redux/listSlice";
-import { RootState } from "../../redux/store";
+import { resetList } from "../../redux/listSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./List.module.scss";
 import RepositoryCard from "../Card/Card";
-import { TappDispatch } from "../../types";
+import { AppDispatch, RootState} from "../../types";
+import { fetchRepositoriesAsync } from "../../redux/asyncAction";
 
 const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 
 const RepositoryList = () => {
-  const dispatch = useDispatch<TappDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const { items, loading, currentPage, hasMore } = useSelector(
     (state: RootState) => state.list
   );

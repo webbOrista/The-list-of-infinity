@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editRepository } from "../../redux/listSlice";
+import { editRepository} from "../../redux/listSlice";
+import {Repository} from "../../types"
 import styles from "./EditModal.module.scss";
 
 interface EditModalProps {
-  repository: any;
+  repository: Repository ;
   onClose: () => void;
 }
 
@@ -14,7 +15,7 @@ const EditModal: React.FC<EditModalProps> = ({ repository, onClose }) => {
   const [description, setDescription] = useState(repository.description);
 
   const handleSave = () => {
-    dispatch(editRepository({ id: repository.id, name, description }));
+    dispatch(editRepository({ id: repository.id, name, description: description || '' }));
     onClose();
   };
 

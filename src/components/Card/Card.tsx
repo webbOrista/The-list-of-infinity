@@ -1,15 +1,17 @@
 import { forwardRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeRepository } from "../../redux/listSlice";
+import { removeRepository} from "../../redux/listSlice";
 import { format } from "date-fns";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import StarIcon from "@mui/icons-material/Star";
+import {Repository} from "../../types"
 import EditModal from "../EditModal/EditModal";
 import styles from "./Card.module.scss";
 
+
 interface RepositoryCardProps {
-  repository: any;
+  repository: Repository;
 }
 
 const RepositoryCard = forwardRef<HTMLLIElement, RepositoryCardProps>(
