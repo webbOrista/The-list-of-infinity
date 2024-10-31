@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetList } from "../../redux/listSlice";
@@ -6,8 +7,9 @@ import styles from "./List.module.scss";
 import RepositoryCard from "../Card/Card";
 import { AppDispatch, RootState} from "../../types";
 import { fetchRepositoriesAsync } from "../../redux/asyncAction";
+import { accessToken } from "../../config";
 
-const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+const AccessToken = accessToken
 
 const RepositoryList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,7 +24,7 @@ const RepositoryList = () => {
       fetchRepositoriesAsync({
         query: "javascript",
         page: currentPage,
-        token: accessToken,
+        token: AccessToken,
       })
     );
 

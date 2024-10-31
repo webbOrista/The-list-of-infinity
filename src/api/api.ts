@@ -19,6 +19,5 @@ export const fetchRepositories = async (query: string, page: number = 1, token?:
     return response.data;
   } catch (error) {
     console.error("Ошибка:", error);
-    throw error;
   }
 };

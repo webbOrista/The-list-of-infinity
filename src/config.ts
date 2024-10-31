@@ -1,0 +1,1 @@
+export const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
