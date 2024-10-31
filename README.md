@@ -2,7 +2,7 @@
 ## Стек:  
 TypeScript, React, Redux Toolkit, CSS-modules, Vite, Jest, React Testing Library.  
 
-Используемые библиотеки:  
+## Используемые библиотеки:  
 Axios, date-fns, MUI Material  
 
 ## Функциональность:  
