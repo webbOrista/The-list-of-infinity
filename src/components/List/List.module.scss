@@ -1,11 +1,10 @@
-.listWrapper{
-    scroll-behavior: smooth;
-    overflow-y: auto;
-    max-height: 70vh;
-  }
+.listWrapper {
+  scroll-behavior: smooth;
+  max-height: 70vh;
+}
 
-  ul, ol {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
+.listItem {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}

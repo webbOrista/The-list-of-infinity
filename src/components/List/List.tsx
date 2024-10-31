@@ -61,9 +61,9 @@ const RepositoryList = () => {
   }, [items]);
 
   return (
-    <div className={styles.listItem}>
+    <div className={styles.listWrapper}>
       {loading && <CircularProgress size={50} color="inherit" />}
-      <ul>
+      <ul className={styles.listItem} >
         {items.map((repo, index) => {
           const isLastRepo = index === items.length - 1;
           return (

@@ -32,17 +32,21 @@ const RepositoryCard = forwardRef<HTMLLIElement, RepositoryCardProps>(
     return (
       <li ref={ref} key={repository.id} className={styles.card}>
         <div>
-          <h4>{repository.name}</h4>
-          <p>{repository.description}</p>
+        <StarIcon/>
+          <h4 className={styles.cardTitle}>{repository.name}</h4>
+          <p className={styles.cardDescription}>{repository.description}</p>
           <div>
-            <StarIcon style={{ marginRight: "4px" }} />
-            <p>Количество звезд: {repository.stargazers_count}</p>
+            <p className={styles.inscription}>Количество звезд:</p>
+            <p className={styles.value}>{repository.stargazers_count}</p>
           </div>
-          <p>Обновлен: {formattedDate}</p>
-          <a href={repository.html_url} target="_blank">
+          <p className={styles.inscription}>Обновлен:</p>
+          <p className={styles.value}>{formattedDate}</p>
+          <a href={repository.html_url} className={styles.cardLink} target="_blank">
             Перейти в репозиторий
           </a>
+          <div  className={styles.buttonWrapper}>
           <button
+          className={styles.cardButton}
             onClick={() => setIsEditing(true)}
             style={{ display: "flex", alignItems: "center" }}
           >
@@ -50,12 +54,14 @@ const RepositoryCard = forwardRef<HTMLLIElement, RepositoryCardProps>(
             Редактировать
           </button>
           <button
+            className={styles.cardButton}
             onClick={handleDelete}
             style={{ display: "flex", alignItems: "center" }}
           >
             <DeleteIcon style={{ marginRight: "4px" }} />
             Удалить
           </button>
+          </div>
         </div>
         {isEditing && (
           <EditModal

@@ -1,14 +1,66 @@
+@import '../../variables';
+
 .header {
-  margin-bottom: 30px;
-}
-
-.titleWrapper {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 5px;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+
+  .titleWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    cursor: default;
+  
+    .title {
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      text-transform: uppercase;
+      margin: 0px;
+    }
+  
+    .titleStar {
+      color: $accent-color;
+    }
+  }
+  
+  .sortingWrapper {
+    background-color: $accent-color;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin: 25px;
+  
+    .label {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .select {
+      font-size: 16px;
+      font-weight: 700;
+      color: inherit;
+      border: none;
+      outline: none;
+      background: transparent;
+      cursor: pointer;
+    
+      &:focus {
+        border: none;
+        outline: none;
+      }
+    }
+    .option {
+      background-color: $accent-color;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      text-align: center;
+      border-radius: 5px;
+    }
+  }
+  
 }
 
-.title {
-  text-transform: uppercase;
-}
+
+

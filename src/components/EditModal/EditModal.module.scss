@@ -1,5 +1,59 @@
-.modal{
+@import "../../variables";
+@import "../Card/Card.module.scss";
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  max-width: 200px;
+  border: 2px solid $light-accent-color;
+  border-radius: 12px;
+  padding: 10px 15px;
+  color: $main-text-color;
+  background-color: $main-background-color;
+
+  .modalTitle {
+    margin: 15px;
+  }
+
+  .modalButtonWrapper {
     display: flex;
-    flex-direction: column;
-    max-width: 30%;
+    justify-content: center;
+    gap: 5px;
+    font-size: 12px;
+  }
+
+  .label {
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .editText {
+    color: $main-text-color;
+    width: 170px;
+    min-height: 20px;
+    max-height: 40px;
+    margin-bottom: 10px;
+    border: 1px solid $light-accent-color;
+    border-radius: 8px;
+    background-color: $main-background-color;
+    resize: none;
+    &:focus {
+      outline: none;
+    }
+  }
 }

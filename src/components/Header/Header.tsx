@@ -22,13 +22,15 @@ const Header: React.FC = () => {
         <h1 className={styles.title}>Звездные репозитории</h1>
         <StarIcon className={styles.titleStar} />
       </div>
-      <label>
+      <div className={styles.sortingWrapper}>
+      <label  className={styles.label}>
         Сортировать по:
-        <select onChange={handleSortChange}>
-          <option value="stars">количеству звезд</option>
-          <option value="updated">дате обновления</option>
+        <select className={styles.select} onChange={handleSortChange}>
+          <option className={styles.option} value="stars">количеству звезд</option>
+          <option className={styles.option} value="updated">дате обновления</option>
         </select>
       </label>
+      </div>
     </div>
   );
 };

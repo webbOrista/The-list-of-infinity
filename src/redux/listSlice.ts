@@ -19,10 +19,6 @@ const listSlice = createSlice({
       state.items = [];
       state.currentPage = 1;
     },
-
-    addRepository: (state, action) => {
-      state.items.push(action.payload);
-    },
     removeRepository: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
@@ -60,7 +56,6 @@ const listSlice = createSlice({
 });
 
 export const {
-  addRepository,
   removeRepository,
   editRepository,
   resetList,

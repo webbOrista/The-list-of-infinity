@@ -1,3 +1,78 @@
-.card{
-    padding: 10px;
+@import '../../variables';
+
+.card {
+  color: $main-text-color;
+  padding: 20px 40px;
+  min-width: 220px;
+  max-width: 25%;
+  margin: auto;
+  border: none;
+  border-radius: 20px;
+  background-color: $main-background-color;
+  margin-bottom: 15px;
+  cursor: default;
+  box-shadow: 0 4px 10px rgba(218, 165, 32, 0.5);
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(218, 165, 32, 0.7);
   }
+
+  .cardTitle {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 5px;
+    border-radius: 12px;
+    outline: 1px solid $accent-color;
+  }
+
+  .cardDescription {
+    font-size: 12px;
+    max-width: 90%;
+    display: block;
+    margin: auto;
+  }
+
+  .inscription {
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  .value {
+    font-size: 12px;
+    margin-top: 0px;
+  }
+
+  .cardLink {
+    color: $accent-color;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      color: $light-accent-color;
+    }
+  }
+
+  .buttonWrapper {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+  }
+}
+
+.cardButton {
+  color: $main-text-color;
+  border: 1px solid #dfb241;
+  background-color: $main-background-color;;
+  &:hover {
+    border: 1px solid $light-accent-color;
+    background-color: $light-accent-color;
+  }
+  &:focus {
+    outline: none;
+  }
+}

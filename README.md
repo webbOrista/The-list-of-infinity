@@ -1,50 +1,46 @@
-# React + TypeScript + Vite
+# The list of infinity  
+## Стек:  
+TypeScript, React, Redux Toolkit, CSS-modules, Vite, Jest, React Testing Library.  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Используемые библиотеки:  
+Axios, MUI Material  
 
-Currently, two official plugins are available:
+## Функциональность:  
+- Обеспечено получение данных о репозиториях от GitHub API.
+- Реализован вывод данных в интерфейс в виде карточек с постепенной подгрузкой данных и плавным скроллом.
+- Карточкам добавлена возможность удаления и редактирования данных с локальным сохранением изменений.
+- Реализована возможность сортировки списка репозиториев по дате обновления и количеству полученных звёзд.
+- Для минимальной стилизации использована библиотека MUI Material, так как она отлично подходит для проектов на React и содержит большинство необходимых иконок, которые удобно встраивать в jsx-разметку в виде компонентов.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Запуск проекта:  
+1. Установите необходимые зависимости:
 
-## Expanding the ESLint configuration
+   ```
+   npm install
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. Установите дополнительные библиотеки:
 
-- Configure the top-level `parserOptions` property like this:
+   ```
+   npm install axios @mui/material @mui/icons-material dotenv
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+3. Создайте файл с переменными окружения `.env` и добавьте в него свой токен из GitHub для авторизованных запросов к GitHub API:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+   ```
+   // .env
+   VITE_ACCESS_TOKEN=ваш_токен
+   ```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+4. Запустите проект:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   ```
+   npm run dev
+   ```
+
+5. Для проверки работы тестов используйте команду:
+
+   ```
+   npm test
+   ```
+
